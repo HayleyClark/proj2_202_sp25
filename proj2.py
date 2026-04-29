@@ -66,14 +66,58 @@ def read_csv_lines(filename: str) -> Optional[Node]:
   return read_csv_rows(rows, 1)
 
 # Task 3
-# listlen(data: Optional[Node]) -> int: Function returns the number of rows within the linked list
+# listlen(data: Optional[Node]) -> int: Function returns the number of rows within the linked list.
 def listlen(data: Optional[Node]) -> int:
   if data is None:
     return 0
   return 1 + listlen(data.next)
 
 # Task 4
+# filter_rows: Function takes in a linked list of rows, a field name, a comparison string, and a value, and returns a new linked list 
+# containing only the rows that fit the filter.
+def filter_rows(
+    data: Optional[Node],
+    field_name: str,
+    comparison: str,
+    value: Union[str, float, int]
+) -> Optional[Node]:
+      if data is None:
+        return None
+    filtered_rest = filter_rows(data.next, field_name, comparison, value)
+    row = data.value
+    if field_name == "country":
+        field_value = row.country
+    elif field_name == "year":
+        field_value = row.year
+    elif field_name == "electricity_and_heat_co2_emissions":
+        field_value = row.electricity_and_heat_co2_emissions
+    elif field_name == "electricity_and_heat_co2_emissions_per_capita":
+        field_value = row.electricity_and_heat_co2_emissions_per_capita
+    elif field_name == "energy_co2_emissions":
+        field_value = row.energy_co2_emissions
+    elif field_name == "energy_co2_emissions_per_capita":
+        field_value = row.energy_co2_emissions_per_capita
+    elif field_name == "total_co2_emissions_excluding_lucf":
+        field_value = row.total_co2_emissions_excluding_lucf
+    elif field_name == "total_co2_emissions_excluding_lucf_per_capita":
+        field_value = row.total_co2_emissions_excluding_lucf_per_capita
+    else:
+        return filtered_rest  # unknown field → skip
 
+    if field_value is None:
+        return filtered_rest
+    if field_name == "country":
+        if comparison == "equal" and field_value == value:
+            return Node(row, filtered_rest)
+        return filtered_rest
+    if comparison == "less_than" and field_value < value:
+        return Node(row, filtered_rest)
+    if comparison == "greater_than" and field_value > value:
+        return Node(row, filtered_rest)
+    if comparison == "equal" and field_value == value:
+        return Node(row, filtered_rest)
+    return filtered_rest
+  
 
   
 
