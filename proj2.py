@@ -66,7 +66,13 @@ def read_csv_lines(filename: str) -> Optional[Node]:
   return read_csv_rows(rows, 1)
 
 # Task 3
+# listlen(data: Optional[Node]) -> int: Function returns the number of rows within the linked list
+def listlen(data: Optional[Node]) -> int:
+  if data is None:
+    return 0
+  return 1 + listlen(data.next)
 
+# Task 4
 
 
   
