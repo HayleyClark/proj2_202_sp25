@@ -46,7 +46,7 @@ def read_csv_rows(rows: list[list[str]], index: int) -> Node | None:
     return None
   row = parse_row(rows[index])
   return Node(row, read_csv_rows(rows, index + 1))
-# read_csv_lines(filename: str) -> Optional[Node] : Function takes in a filename and returns a linked list of Node objects representing the CSV data
+# read_csv_lines(filename: str) -> Optional[Node] :Function takes in a filename and returns a linked list of Node objects representing the CSV data
 def read_csv_lines(filename: str) -> Optional[Node]:
   expected_header = [
         "country",
@@ -64,6 +64,8 @@ def read_csv_lines(filename: str) -> Optional[Node]:
   if rows[0] != expected_header:
       raise ValueError("unexpected first line: got {}".format(rows[0]))
   return read_csv_rows(rows, 1)
+
+# Task 3
 
 
 
