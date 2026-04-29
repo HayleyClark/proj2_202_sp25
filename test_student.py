@@ -18,7 +18,7 @@ class TestCSVFunctions(unittest.TestCase):
         self.assertIsNone(data.value.total_co2_emissions_excluding_lucf_per_capita)
         self.assertIsNone(data.next.value.energy_co2_emissions_per_capita)
 
- # listlen tests
+    # listlen tests
     def test_listlen_empty(self):
         self.assertEqual(listlen(None), 0)
 
@@ -32,6 +32,28 @@ class TestCSVFunctions(unittest.TestCase):
         row2 = Row("Canada", 2019, 4000.0, 10.0, 2500.0, None, 7000.0, 8.0)
         data = Node(row1, Node(row2, None))
         self.assertEqual(listlen(data), 2)
+
+    # filter_rows tests
+    def test_filter_rows_country_equal(self):
+        data = read_csv_lines("sample.csv")
+        result = filter_rows(data, "country", "equal", "USA")
+        self.assertIsNotNone(result)
+        self.assertEqual(result.value.country, "USA")
+        self.assertIsNone(result.next)
+
+    def test_filter_rows_year_greater_than(self):
+        data = read_csv_lines("sample.csv")
+        result = filter_rows(data, "year", "greater_than", 2019)
+        self.assertIsNotNone(result)
+        self.assertEqual(result.value.country, "USA")
+        self.assertIsNone(result.next)
+
+    def test_filter_rows_skips_none(self):
+        data = read_csv_lines("sample.csv")
+        result = filter_rows(data, "electricity_and_heat_co2_emissions_per_capita", "greater_than", 9.0)
+        self.assertIsNotNone(result)
+        self.assertEqual(result.value.country, "Canada")
+        self.assertIsNone(result.next)
 
 
 
