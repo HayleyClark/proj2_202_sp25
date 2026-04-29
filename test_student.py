@@ -18,5 +18,20 @@ class TestCSVFunctions(unittest.TestCase):
         self.assertIsNone(data.value.total_co2_emissions_excluding_lucf_per_capita)
         self.assertIsNone(data.next.value.energy_co2_emissions_per_capita)
 
+ # listlen tests
+    def test_listlen_empty(self):
+        self.assertEqual(listlen(None), 0)
+
+    def test_listlen_one_node(self):
+        row = Row("USA", 2020, 5000.0, None, 3000.0, 9.5, 8000.0, None)
+        data = Node(row, None)
+        self.assertEqual(listlen(data), 1)
+
+    def test_listlen_multiple_nodes(self):
+        row1 = Row("USA", 2020, 5000.0, None, 3000.0, 9.5, 8000.0, None)
+        row2 = Row("Canada", 2019, 4000.0, 10.0, 2500.0, None, 7000.0, 8.0)
+        data = Node(row1, Node(row2, None))
+        self.assertEqual(listlen(data), 2)
+
 
 
