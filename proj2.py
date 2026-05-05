@@ -102,7 +102,7 @@ def filter_rows(
     elif field_name == "total_co2_emissions_excluding_lucf_per_capita":
         field_value = row.total_co2_emissions_excluding_lucf_per_capita
     else:
-        return filtered_rest  # unknown field → skip
+        return filtered_rest  
 
     if field_value is None:
         return filtered_rest
